@@ -27,6 +27,11 @@ RUN apt-get update -y \
   && apt-get install -y --no-install-recommends proxychains4 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+ARG TARGETARCH
+ARG KUBECTL_VERSION=v1.32.9
+ARG HELM_VERSION=v3.16.0
+ARG ARGO_VERSION=v3.5.10
+
 RUN curl -sLO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" && \
     mv kubectl /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl && \
