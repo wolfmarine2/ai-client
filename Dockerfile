@@ -49,21 +49,22 @@ RUN cd /opt && \
     corepack prepare yarn@4.11.0 --activate && \
     #config rust
     mkdir -p /root/.cargo && \
-    mv config.toml /root/.cargo/config.toml && \ 
+    mv config.toml /root/.cargo/config.toml && \
     #config python
-    pip config set global.trusted-host mirrors.prod.dzhq.cn && \
+    pip config set global.trusted-host mirrors.prod.dhzq.cn && \
     pip config set global.index http://mirrors.prod.dhzq.cn/repository/pypi/pypi && \
     pip config set global.index-url http://mirrors.prod.dhzq.cn/repository/pypi/simple && \
     #config npm
-    npm config set registry http://mirrors.prod.dhzq.cn/repository/npm/ && \
     npm i -g pnpm && \
+    npm config set registry http://mirrors.prod.dhzq.cn/repository/npm/ && \
     pnpm config set registry http://mirrors.prod.dhzq.cn/repository/npm/ && \
     #opencode
     curl -fsSL https://opencode.ai/install | bash && \
     #qwen code
     curl -fsSL https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen-standalone.sh | bash && \
     #codewhale
-    curl -fsSL -o codewhale https://github.com/Hmbown/CodeWhale/releases/latest/download/codewhale-linux-x64 && \
+    ARCH=$([ "${TARGETARCH}" = "arm64" ] && echo "arm64" || echo "x64") && \
+    curl -fsSL -o codewhale https://github.com/Hmbown/CodeWhale/releases/latest/download/codewhale-linux-${ARCH} && \
     chmod +x codewhale && \
     xattr -d com.apple.quarantine codewhale 2>/dev/null || true && \
     mv codewhale /usr/local/bin/ && \
