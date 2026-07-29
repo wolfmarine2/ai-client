@@ -1,0 +1,8 @@
+[source.crates-io]
+replace-with = "nexus"
+
+[source.nexus]
+registry = "sparse+http://mirrors.prod.dhzq.cn/repository/cargo/"
+
+[registries.nexus]
+index = "sparse+http://mirrors.prod.dhzq.cn/repository/cargo/"
