@@ -32,7 +32,7 @@ RUN curl -sLO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETAR
     chmod +x /usr/local/bin/kubectl && \
     curl -sLO "https://get.helm.sh/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz" && \
     tar -zxvf "helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz" && \
-    mv "linux-${TARGETARCH}/helm" /user/local/bin/helm && \
+    mv "linux-${TARGETARCH}/helm" /usr/local/bin/helm && \
     chmod +x /usr/local/bin/helm && \
     curl -sLO "https://github.com/argoproj/argo-workflows/releases/download/${ARGO_VERSION}/argo-linux-${TARGETARCH}.gz" && \
     gunzip "argo-linux-${TARGETARCH}.gz" && \
@@ -77,6 +77,6 @@ RUN cd /opt && \
 #RUN chmod +x /usr/local/bin/entrypoint.sh
 
 #入口脚本
-USER 0
+usr 0
 WORKDIR /root
 #ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
