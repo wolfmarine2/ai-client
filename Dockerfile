@@ -45,9 +45,6 @@ RUN cd /opt && \
     corepack enable && \
     corepack prepare yarn@4.11.0 --activate && \
     #config rust
-    tar xf rust-1.96.1-aarch64-unknown-linux-gnu.tar.xz && \
-    sh rust-1.96.1-aarch64-unknown-linux-gnu/install.sh --prefix=/usr/local && \
-    rm -rf rust-1.96.1-aarch64-unknown-linux-gnu.tar.xz && \
     mkdir -p /root/.cargo && \
     mv config.toml /root/.cargo/config.toml && \ 
     #config python
