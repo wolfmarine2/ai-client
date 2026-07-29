@@ -2,9 +2,6 @@ FROM ubuntu:26.04
 
 
 #ssh key
-COPY ssh/id_ed25519 /root/.ssh/id_ed25519
-COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
-
 COPY config.toml /opt/config.toml
 COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
@@ -16,8 +13,7 @@ RUN  apt-get update -y \
   && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
   && dpkg-reconfigure -f noninteractive tzdata \
   && apt-get clean && rm -rf /var/lib/apt/lists/* \
-  && chmod 600 /root/.ssh/id_ed25519 \
-  && ssh-keyscan -p 9022 -H forgejo.prod.dhzq.cn >> /root/.ssh/known_hosts
+  && chmod 600 /root/.ssh/id_ed25519
 
 #操作系统基础设置
 ENV LANG=en_US.UTF-8
