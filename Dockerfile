@@ -77,6 +77,6 @@ RUN cd /opt && \
 #RUN chmod +x /usr/local/bin/entrypoint.sh
 
 #入口脚本
-usr 0
+user 0
 WORKDIR /root
 #ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
