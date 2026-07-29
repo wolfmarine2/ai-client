@@ -6,6 +6,8 @@ COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
 
 COPY config.toml /opt/config.toml
+COPY ssh/id_ed25519 /root/.ssh/id_ed25519
+COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
 
 RUN  apt-get update -y \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates gnupg curl wget sudo curl git locales jq openssh-client tzdata \
