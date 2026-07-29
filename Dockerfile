@@ -35,7 +35,7 @@ RUN curl -sLO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETAR
     curl -sLO "https://get.helm.sh/helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz" && \
     tar -zxvf "helm-${HELM_VERSION}-linux-${TARGETARCH}.tar.gz" && \
     mv "linux-${TARGETARCH}/helm" /user/local/bin/helm && \
-    chmod +x /user/local/bin/helm \
+    chmod +x /user/local/bin/helm && \
     curl -sLO "https://github.com/argoproj/argo-workflows/releases/download/${ARGO_VERSION}/argo-linux-${TARGETARCH}.gz" && \
     gunzip "argo-linux-${TARGETARCH}.gz" && \
     mv "argo-linux-${TARGETARCH}" /usr/local/bin/argo && \
