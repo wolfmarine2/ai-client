@@ -1,6 +1,5 @@
 name: Build and Push Multi-Arch Docker Image
 
-
 on:
   workflow_dispatch:
 
