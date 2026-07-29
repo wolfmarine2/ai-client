@@ -1,4 +1,4 @@
-FROM image.prod.dhzq.cn/library/ubuntu:26.04
+FROM ubuntu:26.04
 
 
 #ssh key
