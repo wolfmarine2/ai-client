@@ -8,7 +8,7 @@ COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
 COPY config.toml /opt/config.toml
 
 RUN  apt-get update -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates gnupg curl wget sudo git locales jq openssh-client tzdata \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates gnupg curl wget sudo curl git locales jq openssh-client tzdata \
   && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
   && locale-gen en_US.UTF-8 \
   && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
