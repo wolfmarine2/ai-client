@@ -7,12 +7,15 @@ COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
 
 RUN  apt-get update -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates gnupg curl wget vim sudo git locales jq openssh-client tzdata \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+       ca-certificates gnupg curl wget vim sudo git locales jq \
+       openssh-client openssh-server tini tzdata \
   && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
   && locale-gen en_US.UTF-8 \
   && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
   && dpkg-reconfigure -f noninteractive tzdata \
   && apt-get clean && rm -rf /var/lib/apt/lists/* \
+  && chmod 700 /root/.ssh \
   && chmod 600 /root/.ssh/id_ed25519
 
 #操作系统基础设置
@@ -82,7 +85,19 @@ RUN cd /opt && \
 #COPY entrypoint.sh /usr/local/bin/
 #RUN chmod +x /usr/local/bin/entrypoint.sh
 
-#入口脚本
+#sshd 配置
+COPY sshd_config.d/99-devpod.conf /etc/ssh/sshd_config.d/99-devpod.conf
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN rm -f /etc/ssh/ssh_host_* \
+  && mkdir -p /run/sshd /root/.ssh \
+  && chmod 700 /root/.ssh \
+  && chmod +x /usr/local/bin/entrypoint.sh \
+  # 把构建期 PATH 固化，供非交互式 ssh 会话使用
+  && echo "PATH=${PATH}:/root/.opencode/bin:/root/.qwen/bin:/root/.kimi/bin:/usr/local/bin" > /etc/environment
+
+EXPOSE 22
 USER root
 WORKDIR /root
-#ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+CMD ["sshd"]
