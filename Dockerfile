@@ -92,7 +92,6 @@ RUN cd /opt && \
 RUN rm -f /etc/ssh/ssh_host_* \
   && mkdir -p /run/sshd /root/.ssh \
   && chmod 700 /root/.ssh \
-  && chmod +x /usr/local/bin/entrypoint.sh \
   # 把构建期 PATH 固化，供非交互式 ssh 会话使用
   && echo "PATH=${PATH}:/root/.opencode/bin:/root/.qwen/bin:/root/.kimi/bin:/usr/local/bin" > /etc/environment
 
