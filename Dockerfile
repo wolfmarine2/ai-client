@@ -86,8 +86,8 @@ RUN cd /opt && \
 #RUN chmod +x /usr/local/bin/entrypoint.sh
 
 #sshd 配置
-COPY sshd_config.d/99-devpod.conf /etc/ssh/sshd_config.d/99-devpod.conf
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+#COPY sshd_config.d/99-devpod.conf /etc/ssh/sshd_config.d/99-devpod.conf
+#COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN rm -f /etc/ssh/ssh_host_* \
   && mkdir -p /run/sshd /root/.ssh \
@@ -99,5 +99,4 @@ RUN rm -f /etc/ssh/ssh_host_* \
 EXPOSE 22
 USER root
 WORKDIR /root
-ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
-CMD ["sshd"]
+CMD ["/usr/sbin/sshd", "-D", "-e"]
