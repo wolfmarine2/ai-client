@@ -13,8 +13,7 @@ RUN  apt-get update -y \
   && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
   && dpkg-reconfigure -f noninteractive tzdata \
   && apt-get clean && rm -rf /var/lib/apt/lists/* \
-  && chmod 700 /root/.ssh \
-  && chmod 600 /root/.ssh/id_ed25519
+
 
 #操作系统基础设置
 ENV LANG=en_US.UTF-8
@@ -94,6 +93,9 @@ RUN mkdir -p /run/sshd /root/.ssh \
 
 COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
+
+RUN  chmod 700 /root/.ssh \
+  && chmod 600 /root/.ssh/id_ed25519
 
 EXPOSE 22
 USER root
