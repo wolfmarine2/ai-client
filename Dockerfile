@@ -86,16 +86,12 @@ RUN cd /opt && \
 #COPY sshd_config.d/99-devpod.conf /etc/ssh/sshd_config.d/99-devpod.conf
 #COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-RUN mkdir -p /run/sshd /root/.ssh \
-  && chmod 700 /root/.ssh \
-  # 把构建期 PATH 固化，供非交互式 ssh 会话使用
-  && echo "PATH=${PATH}:/root/.opencode/bin:/root/.qwen/bin:/root/.kimi/bin:/usr/local/bin" > /etc/environment
-
 COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
 
 RUN  chmod 700 /root/.ssh \
-  && chmod 600 /root/.ssh/id_ed25519
+  && chmod 600 /root/.ssh/id_ed25519 \
+  && echo "PATH=${PATH}:/root/.opencode/bin:/root/.qwen/bin:/root/.kimi/bin:/usr/local/bin" > /etc/environment
 
 EXPOSE 22
 USER root
